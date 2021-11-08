@@ -21,6 +21,12 @@ pip install pipenv
 pipenv shell
 ```
 
+### 安裝套件
+
+```python
+pipenv install -r requirements.txt
+```
+
 ### 啟動伺服器
 
 ```python
