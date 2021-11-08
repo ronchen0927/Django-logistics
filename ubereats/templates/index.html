@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<p class="fs-1 fw-bold">訂單管理平台</p>
+<table class="table caption-top">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">訂單</th>
+            <th scope="col">分派店家</th>
+            <th scope="col">分派司機</th>
+            <th scope="col">商家餐點</th>
+            <th scope="col">司機送餐</th>
+            <th scope="col">訂單</th>
+            <th scope="col"><th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <th scope="row">{{ order.id }}</th>
+            <td>{{ order }}</td>
+            {% if order.store %}
+                <td>{{ order.store }}</td>
+            {% else %}
+                <td>{{ "未分派商家" }}</td>
+            {% endif %}
+            {% if order.driver %}
+                <td>{{ order.driver }}</td>
+            {% else %}
+                <td>{{ "未分派司機" }}</td>
+            {% endif %}
+            {% if order.is_store_completed %}
+                <td>{{ "完成" }}</td>
+            {% else %}
+                <td>{{ "未完成" }}</td>
+            {% endif %}
+            {% if order.is_driver_completed %}
+                <td>{{ "完成" }}</td>
+            {% else %}
+                <td>{{ "未完成" }}</td>
+            {% endif %}
+            {% if order.is_completed %}
+                <td>{{ "完成" }}</td>
+            {% else %}
+                <td>{{ "未完成" }}</td>
+            {% endif %}
+            <td>
+                <a href="{% url 'Dispatch_Store' order.id %}" class="btn btn-primary">發派商家</a>
+                <a href="{% url 'Dispatch_Driver' order.id %}" class="btn btn-info">發派司機</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'Create_Order' %}" class="btn btn-success">新增訂單</a>
+{% endblock %}
