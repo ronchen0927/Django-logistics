@@ -23,8 +23,10 @@ pipenv shell
 python manage.py runserver
 ```
 
-#### Django 內建後台登入
-進入 http://127.0.0.1:8000/admin
+#### 進入首頁
+http://127.0.0.1:8000/ubereats/
 
-帳號: root
-密碼: admin
+#### Django 內建後台登入
+http://127.0.0.1:8000/admin/
+
+帳號: root 密碼: admin
