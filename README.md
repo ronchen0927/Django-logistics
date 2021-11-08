@@ -35,4 +35,4 @@ http://127.0.0.1:8000/ubereats/
 
 http://127.0.0.1:8000/admin/
 
-帳號: root 密碼: adminb
+帳號: root 密碼: admin
