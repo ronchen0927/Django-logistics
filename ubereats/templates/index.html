@@ -6,8 +6,8 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">訂單</th>
-            <th scope="col">分派店家</th>
-            <th scope="col">分派司機</th>
+            <th scope="col">發派店家</th>
+            <th scope="col">發派司機</th>
             <th scope="col">商家餐點</th>
             <th scope="col">司機送餐</th>
             <th scope="col">訂單</th>
@@ -22,31 +22,31 @@
             {% if order.store %}
                 <td>{{ order.store }}</td>
             {% else %}
-                <td>{{ "未分派商家" }}</td>
+                <td><a href="{% url 'Dispatch_Store' order.id %}" class="btn btn-primary">發派商家</a></td>
             {% endif %}
             {% if order.driver %}
                 <td>{{ order.driver }}</td>
             {% else %}
-                <td>{{ "未分派司機" }}</td>
+                <td><a href="{% url 'Dispatch_Driver' order.id %}" class="btn btn-info">發派司機</a></td>
             {% endif %}
             {% if order.is_store_completed %}
-                <td>{{ "完成" }}</td>
+                <td>完成</td>
             {% else %}
-                <td>{{ "未完成" }}</td>
+                <td>未完成</td>
             {% endif %}
             {% if order.is_driver_completed %}
-                <td>{{ "完成" }}</td>
+                <td>完成</td>
             {% else %}
-                <td>{{ "未完成" }}</td>
+                <td>未完成</td>
             {% endif %}
             {% if order.is_completed %}
-                <td>{{ "完成" }}</td>
+                <td>完成</td>
             {% else %}
-                <td>{{ "未完成" }}</td>
+                <td>未完成</td>
             {% endif %}
             <td>
-                <a href="{% url 'Dispatch_Store' order.id %}" class="btn btn-primary">發派商家</a>
-                <a href="{% url 'Dispatch_Driver' order.id %}" class="btn btn-info">發派司機</a>
+                <a href="{% url 'Update_Order' order.id %}" class="btn btn-warning">修改訂單</a>
+                <a href="{% url 'Delete_Order' order.id %}" class="btn btn-danger">刪除訂單</a>
             </td>
         </tr>
         {% endfor %}

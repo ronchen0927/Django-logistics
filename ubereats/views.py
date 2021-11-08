@@ -13,7 +13,7 @@ def index(request):
             order.save()
 
     context = {
-        "orders": orders
+        'orders': orders
     }
 
     return render(request, 'index.html', context)
@@ -28,17 +28,61 @@ def create_order(request):
         if order_form.is_valid():
             order_form.save()
 
-        return redirect('/ubereats')
+        return redirect("/ubereats/")
 
-    context = {"order_form": order_form}
+    context = {'order_form': order_form}
     return render(request, 'create_order.html', context)
+
+
+def update_order(request, pk):
+    try:
+        order = Order.objects.get(id=pk)
+    except Order.DoesNotExist:
+        raise Http404("No OrderModel matches the given query.")
+
+    order_form = OrderModelForm()
+    store_form = StoreModelForm()
+    driver_form = DriverModelForm()
+
+    if request.method == "POST":
+        order_form = OrderModelForm(request.POST, instance=order)
+        store_form = StoreModelForm(request.POST, instance=order)
+        driver_form = DriverModelForm(request.POST, instance=order)
+
+        if order_form.is_valid():
+            order_form.save()
+            store_form.save()
+            driver_form.save()
+
+        return redirect("/ubereats/")
+
+    context = {
+        'order_form': order_form,
+        'store_form': store_form,
+        'driver_form': driver_form
+    }
+    return render(request, 'update_order.html', context)
+
+
+def delete_order(request, pk):
+    try:
+        order = Order.objects.get(id=pk)
+    except Order.DoesNotExist:
+        raise Http404("No OrderModel matches the given query.")
+
+    if request.method == "POST":
+        order.delete()
+        return redirect("/ubereats/")
+
+    context = {'order': order}
+    return render(request, 'delete_order.html', context)
 
 
 def dispatch_store_to_order(request, pk):
     try:
         order = Order.objects.get(id=pk)
     except Order.DoesNotExist:
-        raise Http404("No MyModel matches the given query.")
+        raise Http404("No OrderModel matches the given query.")
 
     store_form = StoreModelForm()
 
@@ -50,9 +94,9 @@ def dispatch_store_to_order(request, pk):
         if store_form.is_valid():
             store_form.save()
 
-        return redirect('/ubereats')
+        return redirect("/ubereats/")
 
-    context = {"store_form": store_form}
+    context = {'store_form': store_form}
     return render(request, 'dispatch_store.html', context)
 
 
@@ -60,12 +104,12 @@ def dispatch_driver_to_order(request, pk):
     try:
         order = Order.objects.get(id=pk)
     except Order.DoesNotExist:
-        raise Http404("No MyModel matches the given query.")
+        raise Http404("No OrderModel matches the given query.")
 
     if order.is_store_completed:
         order.is_driver_completed = True
     else:
-        return HttpResponse('請先等待商家餐點完成後再發派司機')
+        return HttpResponse('請先等待商家餐點完成後，再發派司機')
 
     driver_form = DriverModelForm()
 
@@ -75,7 +119,7 @@ def dispatch_driver_to_order(request, pk):
         if driver_form.is_valid():
             driver_form.save()
 
-        return redirect('/ubereats')
+        return redirect("/ubereats/")
 
-    context = {"driver_form": driver_form}
+    context = {'driver_form': driver_form}
     return render(request, 'dispatch_driver.html', context)

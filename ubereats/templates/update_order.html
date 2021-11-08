@@ -2,7 +2,9 @@
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
+    {{ order_form.as_p }}
     {{ store_form.as_p }}
+    {{ driver_form.as_p }}
     <input class="btn btn-success" type="submit" value="送出" />
 </form>
 {% endblock %}
