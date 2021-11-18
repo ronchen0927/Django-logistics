@@ -34,6 +34,19 @@ def create_order(request):
     return render(request, 'create_order.html', context)
 
 
+def detail_order(request, pk):
+    try:
+        order = Order.objects.get(id=pk)
+    except Order.DoesNotExist:
+        raise Http404("No OrderModel matches the given query.")
+
+    context = {
+        "order": order
+    }
+
+    return render(request, 'detail_order.html', context)
+
+
 def update_order(request, pk):
     try:
         order = Order.objects.get(id=pk)

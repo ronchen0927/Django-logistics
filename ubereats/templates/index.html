@@ -27,7 +27,7 @@
             {% if order.driver %}
                 <td>{{ order.driver }}</td>
             {% else %}
-                <td><a href="{% url 'Dispatch_Driver' order.id %}" class="btn btn-info">發派司機</a></td>
+                <td><a href="{% url 'Dispatch_Driver' order.id %}" class="btn btn-secondary">發派司機</a></td>
             {% endif %}
             {% if order.is_store_completed %}
                 <td>完成</td>
@@ -45,6 +45,7 @@
                 <td>未完成</td>
             {% endif %}
             <td>
+                <a href="{% url 'Detail_Order' order.id %}" class="btn btn-info">詳細內容</a>
                 <a href="{% url 'Update_Order' order.id %}" class="btn btn-warning">修改訂單</a>
                 <a href="{% url 'Delete_Order' order.id %}" class="btn btn-danger">刪除訂單</a>
             </td>

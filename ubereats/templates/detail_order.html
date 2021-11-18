@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<p class="fs-1 fw-bold"> 第 {{ order.id }} 單詳細內容</p>
+    <div>
+        食物：{{ order.food }}</br>
+        飲料：{{ order.drink }}</br>
+        發派店家：{% if order.store %} <td>{{ order.store }}</td> {% else %} <td>未發派商家</td>{% endif %} </br>
+        發派司機：{% if order.driver %} <td>{{ order.driver }}</td> {% else %} <td>未發派司機</td> {% endif %} </br>
+        商家餐點是否完成：{% if order.is_store_completed %} <td>完成</td> {% else %} <td>未完成</td> {% endif %} </br>
+        司機送餐是否完成：{% if order.is_driver_completed %}<td>完成</td> {% else %} <td>未完成</td> {% endif %} </br>
+        訂單是否完成：{% if order.is_store_completed %} <td>完成</td> {% else %} <td>未完成</td> {% endif %} </br>
+    </div>
+    </br>
+    <a href="{% url "Index" %}">回到首頁</a>
+{% endblock %}
